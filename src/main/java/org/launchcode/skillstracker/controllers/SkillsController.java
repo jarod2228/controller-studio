@@ -3,9 +3,10 @@ package org.launchcode.skillstracker.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import static java.util.Objects.isNull;
+
 @Controller
 @ResponseBody
-@RequestMapping("hello")
 public class SkillsController {
 
     @GetMapping("{firstName}")
@@ -13,18 +14,44 @@ public class SkillsController {
         return "Hello, there " + firstName + "!";
     }
 
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
     public String helloWithQueryParam(@RequestParam String name) {
-        return "Hello there, " + name + "!";
+        return "Hello, " + name + "!";
+    }
+
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "ambassadorialGreeting")
+    public String createMessage(@RequestParam String name, String language) {
+        if (language.equals("english")) {
+            return "Hello, " + name + "!";
+        } else if (language.equals("french")) {
+            return "Bonjour, " + name + "!";
+        } else if (language.equals("japanese")) {
+            return "Kon'nichiwa, " + name + "!";
+        } else if (language.equals("chinese")) {
+            return "Ni hao, " + name + "!";
+        } else if (language.equals("spanish")) {
+            return "Hola, " + name + "!";
+        } else {
+            return "That doesn't make sense!";
+        }
     }
 
     @GetMapping("form")
     public String helloForm() {
-        return "<form action='hello' method='get'>" +
+        return "<form action='ambassadorialGreeting' method='post'>" +
                 "<input type='text' name='name'>" +
+                "<select name='language'>" +
+                "<option value='english' default='true'>English</option>" +
+                "<option value ='french'>French</option>" +
+                "<option value='japanese'>Japanese</option>" +
+                "<option value='chinese'>Chinese</option>" +
+                "<option value='spanish'>Spanish</option>" +
+                "</select>" +
                 "<input type='submit' value='Say My Name!'>" +
                 "</form>";
     }
+
+
 
 //    @RequestMapping(value="")
 //    public String displaySkills() {
