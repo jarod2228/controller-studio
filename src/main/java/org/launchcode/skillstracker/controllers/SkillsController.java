@@ -9,47 +9,95 @@ import static java.util.Objects.isNull;
 @ResponseBody
 public class SkillsController {
 
-    @GetMapping("{firstName}")
-    public String helloThere(@PathVariable String firstName) {
-        return "Hello, there " + firstName + "!";
-    }
-
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
-    public String helloWithQueryParam(@RequestParam String name) {
-        return "Hello, " + name + "!";
-    }
-
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "ambassadorialGreeting")
-    public String createMessage(@RequestParam String name, String language) {
-        if (language.equals("english")) {
-            return "Hello, " + name + "!";
-        } else if (language.equals("french")) {
-            return "Bonjour, " + name + "!";
-        } else if (language.equals("japanese")) {
-            return "Kon'nichiwa, " + name + "!";
-        } else if (language.equals("chinese")) {
-            return "Ni hao, " + name + "!";
-        } else if (language.equals("spanish")) {
-            return "Hola, " + name + "!";
-        } else {
-            return "That doesn't make sense!";
-        }
+    @GetMapping()
+    public String displayKnownLanguages() {
+        return "<h1>Skills Tracker</h1>" +
+                "<h2>The road so far...</h2>" +
+                "<ol>" +
+                "<li>JavaScript</li>" +
+                "<li>TypeScript</li>" +
+                "<li>Java</li>" +
+                "</ol>";
     }
 
     @GetMapping("form")
-    public String helloForm() {
-        return "<form action='ambassadorialGreeting' method='post'>" +
-                "<input type='text' name='name'>" +
-                "<select name='language'>" +
-                "<option value='english' default='true'>English</option>" +
-                "<option value ='french'>French</option>" +
-                "<option value='japanese'>Japanese</option>" +
-                "<option value='chinese'>Chinese</option>" +
-                "<option value='spanish'>Spanish</option>" +
+    public String formSkills() {
+        return "<form action='hero' method='post'>" +
+                "Name:<br>" +
+                "<input type='text' name='name'/>" +
+                "<br>Favorite language:<br>" +
+                "<select name='firstChoice'>" +
+                "<option value='JavaScript'>JavaScript</option>" +
+                "<option value='TypeScript'>TypeScript</option>" +
+                "<option value='Java'>Java</option>" +
                 "</select>" +
-                "<input type='submit' value='Say My Name!'>" +
+                "<br>Second favorite language:<br>" +
+                "<select name='secondChoice'>" +
+                "<option value='JavaScript'>JavaScript</option>" +
+                "<option value='TypeScript'>TypeScript</option>" +
+                "<option value='Java'>Java</option>" +
+                "</select>" +
+                "<br>Third favorite language:<br>" +
+                "<select name='thirdChoice'>" +
+                "<option value='JavaScript'>JavaScript</option>" +
+                "<option value='TypeScript'>TypeScript</option>" +
+                "<option value='Java'>Java</option>" +
+                "</select><br>" +
+                "<input type='submit' value='Submit!'/>" +
                 "</form>";
     }
+
+    @RequestMapping(value="hero", method=RequestMethod.POST)
+    public String displayFavorites(@RequestParam String name,@RequestParam String firstChoice,@RequestParam String secondChoice,@RequestParam String thirdChoice) {
+        return "<h1>" + name + "</h1>" +
+                "<ol>" +
+                "<li>" + firstChoice + "</li>" +
+                "<li>" + secondChoice + "</li>" +
+                "<li>" + thirdChoice + "</li>" +
+                "</ol>";
+    }
+
+//    @GetMapping("{firstName}")
+//    public String helloThere(@PathVariable String firstName) {
+//        return "Hello, there " + firstName + "!";
+//    }
+//
+//    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
+//    public String helloWithQueryParam(@RequestParam String name) {
+//        return "Hello, " + name + "!";
+//    }
+//
+//    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "ambassadorialGreeting")
+//    public String createMessage(@RequestParam String name, String language) {
+//        if (language.equals("english")) {
+//            return "Hello, " + name + "!";
+//        } else if (language.equals("french")) {
+//            return "Bonjour, " + name + "!";
+//        } else if (language.equals("japanese")) {
+//            return "Kon'nichiwa, " + name + "!";
+//        } else if (language.equals("chinese")) {
+//            return "Ni hao, " + name + "!";
+//        } else if (language.equals("spanish")) {
+//            return "Hola, " + name + "!";
+//        } else {
+//            return "That doesn't make sense!";
+//        }
+//    }
+//
+//    @GetMapping("form")
+//    public String helloForm() {
+//        return "<form action='ambassadorialGreeting' method='post'>" +
+//                "<input type='text' name='name'>" +
+//                "<select name='language'>" +
+//                "<option value='english' default='true'>English</option>" +
+//                "<option value ='french'>French</option>" +
+//                "<option value='japanese'>Japanese</option>" +
+//                "<option value='chinese'>Chinese</option>" +
+//                "<option value='spanish'>Spanish</option>" +
+//                "</select>" +
+//                "<input type='submit' value='Say My Name!'>" +
+//                "</form>";
+//    }
 
 
 
